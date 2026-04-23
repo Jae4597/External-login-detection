@@ -106,9 +106,9 @@ SigninLogs
 
 ### Step 3 — Logic App: `Alert-to-Teams`
 
-![Logic App Designer — Part 1](./screenshots/logic-app-1.png)
-![Logic App Designer — Part 2](./screenshots/logic-app-2.png)
-![Logic App Designer — Part 3](./screenshots/logic-app-3.png)
+![Logic App Designer — Part 1](diagrams/logic-app-1.png)
+![Logic App Designer — Part 2](diagrams/logic-app-2.png)
+![Logic App Designer — Part 3](diagrams/logic-app-3.png)
 
 The playbook performs seven stages:
 
