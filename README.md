@@ -179,7 +179,6 @@ Each alert surfaces the following fields in a compact, scannable card:
 ├── diagrams/
 │   ├── architecture.png
 │   └── architecture.drawio
-├── screenshots/
 │   ├── teams-alert.png
 │   ├── logic-app-1.png
 │   ├── logic-app-2.png
