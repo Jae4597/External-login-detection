@@ -122,7 +122,7 @@ The playbook performs seven stages:
 
 ### Step 4 — Adaptive Card Output
 
-![Teams Adaptive Card Alert](./screenshots/teams-alert.png)
+![Teams Adaptive Card Alert](diagrams/teams-alert.png)
 
 Each alert surfaces the following fields in a compact, scannable card:
 
