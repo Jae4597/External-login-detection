@@ -1,0 +1,37 @@
+// =============================================================================
+// External Login Detection (Non-Corporate IP)
+// =============================================================================
+// Detects any Entra ID sign-in that originates from outside the trusted
+// corporate IP range. Designed to run as a scheduled Sentinel Analytics Rule
+// every 10 minutes.
+//
+// Trusted IPs are intentionally redacted. Populate with your organization's
+// static egress IPs, or migrate to a Sentinel Watchlist for easier management.
+// =============================================================================
+
+let lookback = 10m;
+let trusted = dynamic([
+    "xxx.xxx.xxx.xxx",   // HQ Main Office
+    "xxx.xxx.xxx.xxx",   // HQ Secondary
+    "xxx.xxx.xxx.xxx",   // Branch Office
+    "xxx.xxx.xxx.xxx"    // VPN Egress
+]);
+SigninLogs
+| where TimeGenerated >= ago(lookback)
+| where IPAddress !in (trusted)
+| extend
+    UserResolved  = coalesce(tostring(UserPrincipalName), tostring(Identity),
+                              tostring(UserDisplayName), tostring(AppDisplayName)),
+    IPResolved    = tostring(IPAddress),
+    Status        = iff(ResultType == 0, "SUCCESS", "FAILURE"),
+    FailureReason = tostring(ResultDescription),
+    City          = tostring(LocationDetails.city),
+    State         = tostring(LocationDetails.state),
+    Country       = tostring(LocationDetails.countryOrRegion)
+| top 1 by TimeGenerated desc
+| project
+    TimeUtc = TimeGenerated,
+    User    = UserResolved,
+    IP      = IPResolved,
+    City, State, Country,
+    Status, FailureReason
